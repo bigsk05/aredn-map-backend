@@ -364,14 +364,14 @@ func TestContractStatusShape(t *testing.T) {
 	// Nothing from the nested blocks may leak up: the page reads status.counts.total.
 	forbidKeys(t, status, "status body",
 		"total", "online", "offline", "unprobed", "located", "supernodes", "pending",
-		"links", "services", "unreachable", "crawled",
+		"links", "services", "failed", "unreachable", "crawled",
 		"kind", "phase", "status", "started_at", "completed_at", "completed",
 		"succeeded", "failed", "current_target", "message", "node_progress", "node_total")
 
 	counts := rawObject(t, requireKey(t, status, "counts", "status body"))
 	requireKeys(t, counts, "counts",
 		"total", "online", "offline", "unprobed", "located", "supernodes", "pending",
-		"links", "services", "unreachable", "crawled")
+		"links", "services", "failed", "unreachable", "crawled")
 	scan := rawObject(t, requireKey(t, status, "scan", "status body"))
 	requireKeys(t, scan, "scan",
 		"id", "kind", "phase", "status", "total", "completed", "succeeded", "failed",

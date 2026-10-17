@@ -25,7 +25,6 @@ const (
 	Band5GHz       = "5"
 	BandSupernode  = "s"
 	BandNoRF       = "n"
-	BandWireguard  = "w"
 	BandUnresolved = "u"
 	// BandUnscanned: this scanner never read the node's page, unlike BandUnresolved,
 	// which claims the page was read and its radio could not be identified.
@@ -41,7 +40,6 @@ var BandLabels = map[string]string{
 	Band5GHz:       "5 GHz",
 	BandSupernode:  "Supernode",
 	BandNoRF:       "No RF",
-	BandWireguard:  "WireGuard",
 	BandUnresolved: "Unknown",
 	BandUnscanned:  "Unscanned",
 }
@@ -55,7 +53,6 @@ var BandColors = map[string]string{
 	Band5GHz:       "#3b82f6",
 	BandSupernode:  "#a855f7",
 	BandNoRF:       "#64748b",
-	BandWireguard:  "#14b8a6",
 	BandUnresolved: "#94a3b8",
 	BandUnscanned:  "#78716c",
 }

@@ -98,6 +98,7 @@ func (s *Store) Snapshot() Snapshot {
 
 // countsLocked defines every figure in the summary card; callers must hold at least the read lock.
 // Offline is probed-negatively only, Unreachable is Offline+Unprobed, Disconnected is orthogonal.
+// Pending is work still queued; a node parked after a failure is counted as Failed, not Pending.
 func (s *Store) countsLocked() model.Counts {
 	c := model.Counts{Total: len(s.nodes)}
 	// Links counts physical edges; both directions of one wire are stored as separate rows.
@@ -127,8 +128,12 @@ func (s *Store) countsLocked() model.Counts {
 		if n.IsSupernode {
 			c.Supernodes++
 		}
-		if !n.HasLocation && !n.DetailFetched {
+		// A parked node was tried and did not answer: that is a failure, not a queue entry.
+		if !n.HasLocation && !n.DetailFetched && n.RevisitAt.IsZero() {
 			c.Pending++
+		}
+		if n.FailCount > 0 && !n.Crawled {
+			c.Failed++
 		}
 		for _, svc := range n.Services {
 			if k := lowerASCII(strings.TrimSpace(svc)); k != "" {
@@ -262,7 +267,7 @@ func fresher(a, b model.Link) bool {
 const unknownHopOrder = 1 << 20
 
 // IDsNeedingDetail lists never-fetched and relazy-stale nodes; maxHops -1 means no limit.
-// Names that only came from a host table, and nodes parked for revisit, are held back.
+// Nodes parked for revisit are held back; unknown distance is queued last, never dropped.
 func (s *Store) IDsNeedingDetail(maxHops int, relazy time.Duration) []string {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -276,10 +281,6 @@ func (s *Store) IDsNeedingDetail(maxHops int, relazy time.Duration) []string {
 	var todo []item
 	for id, n := range s.nodes {
 		if maxHops >= 0 && n.Hops >= 0 && n.Hops > maxHops {
-			continue
-		}
-		// A name read out of a host table is evidence the node exists, not that we can reach it.
-		if !n.Crawled && n.Source == "mesh-list" {
 			continue
 		}
 		if !n.RevisitAt.IsZero() && n.RevisitAt.After(now) {

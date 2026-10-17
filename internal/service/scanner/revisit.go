@@ -77,8 +77,9 @@ func (e *Engine) revisit(ctx context.Context) {
 	e.patch(func(s *model.ScanStatus) { s.NodeProgress = len(ids) })
 }
 
-// revisitBatch caps how many parked nodes one sweep is allowed to look at.
-const revisitBatch = 60
+// revisitBatch caps how many parked nodes one sweep looks at. It must stay above the number a
+// mesh of a few thousand parks in one run, or revisit_after is a promise the queue cannot keep.
+const revisitBatch = 500
 
 func (e *Engine) refreshOne(ctx context.Context, host string) {
 	if ctx.Err() != nil {

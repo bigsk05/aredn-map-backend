@@ -175,7 +175,6 @@ func TestNodesBandFilter(t *testing.T) {
 		{"band=2", []string{"zero-snr-rf"}},
 		{"band=n", []string{"dtd-hub", "far-cn-peer"}},
 		{"band=s", []string{"supernode-hq"}},
-		{"band=w", []string{"wg-remote"}},
 		{"band=u", []string{"odd-radio"}},
 		{"band=h", []string{"never-probed-b"}},
 		{"band=9", []string{"never-probed-a"}},

@@ -592,6 +592,9 @@ Temporary Items
 .apdisk
 
 
+# `go build` in this directory drops the binary next to main.go.
+/aredn-map
+
 # Local config holds an operator's keys: never commit it. config.example.yaml stays tracked.
 config.yaml
 /config.*.yaml

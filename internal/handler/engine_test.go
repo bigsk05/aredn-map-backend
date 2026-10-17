@@ -162,10 +162,10 @@ func TestEngineSweepNeverAdoptsALinkDialogAddressAsMeshIP(t *testing.T) {
 	requireLiteral(t, wg, "mesh_ip", "wg-remote", `""`)
 	requireLiteral(t, wg, "source", "wg-remote", `"neighbor-list"`)
 	requireLiteral(t, wg, "online", "wg-remote", "false")
-	// It was never probed, so it is unprobed rather than offline.
+	// A name we only ever saw in a dialog is still a name to resolve, so it gets a verdict.
 	requireKey(t, wg, "probed_at", "wg-remote")
-	if hasVerdict(wg) {
-		t.Errorf("wg-remote looks probed on the wire: %s", mustRaw(t, wg))
+	if !hasVerdict(wg) {
+		t.Errorf("wg-remote has no probe verdict: %s", mustRaw(t, wg))
 	}
 
 	// The DtD hub keeps the mesh address its own page labelled, not its neighbour's dialog address.
@@ -230,8 +230,8 @@ func TestEngineSweepNeverAdoptsALinkDialogAddressAsMeshIP(t *testing.T) {
 	if online+offline+unprobed != total {
 		t.Errorf("swept counts break the invariant: %d+%d+%d != %d", online, offline, unprobed, total)
 	}
-	if online != 3 || offline != 1 || unprobed != 1 || total != 5 {
-		t.Errorf("swept counts = online %d offline %d unprobed %d total %d, want 3/1/1/5", online, offline, unprobed, total)
+	if online != 3 || offline != 2 || unprobed != 0 || total != 5 {
+		t.Errorf("swept counts = online %d offline %d unprobed %d total %d, want 3/2/0/5", online, offline, unprobed, total)
 	}
 }
 

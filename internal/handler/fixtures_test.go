@@ -502,12 +502,11 @@ func seedContractStore(st *store.Store) {
 		Source:        "status-page",
 	})
 
-	// 3: WireGuard peer from the link dialog only: no probe, no coordinates, no band.
+	// 3: WireGuard peer from the link dialog only: no probe, no coordinates, no radio.
 	upsert(&model.Node{
 		Name:         "wg-remote",
 		Hostname:     "wg-remote",
 		URL:          "http://wg-remote.local.mesh/",
-		Band:         model.BandWireguard,
 		Source:       "link-dialog",
 		Hops:         1,
 		DiscoveredAt: fixtureDiscovered,
@@ -629,7 +628,7 @@ func seedContractStore(st *store.Store) {
 	})
 	st.UpsertLink(model.Link{
 		From: "localnode", To: "wg-remote", Container: model.ContainerLocal,
-		Type: model.LinkTypeWireguard, Band: model.BandWireguard, Status: "up",
+		Type: model.LinkTypeWireguard, Band: model.BandNoRF, Status: "up",
 		// A tunnel link reports nothing radio-ish: every pointer stays nil.
 		LocalSNR: nil, NeighborSNR: nil, ETX: nil, AvgTxPps: nil,
 		BitrateRxMbps: nil, BitrateTxMbps: nil, RetransmitPct: nil,

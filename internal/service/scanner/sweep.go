@@ -149,13 +149,12 @@ func stampSupernode(n *model.Node, parts ...string) {
 	}
 }
 
-// expand crawls one node's record and links, then queues everything it points at.
-
+// probe gives a verdict to every known node that has none, including host-table names.
 func (e *Engine) probe(ctx context.Context) {
 	nodes := e.st.Nodes()
 	hosts := make([]string, 0, len(nodes))
 	for _, n := range nodes {
-		if n.Crawled && n.ProbedAt.IsZero() {
+		if n.ProbedAt.IsZero() {
 			hosts = append(hosts, n.Hostname)
 		}
 	}
@@ -168,12 +167,25 @@ func (e *Engine) probe(ctx context.Context) {
 	})
 	e.log.Info("probing nodes", zap.Int("hosts", len(hosts)), zap.String("icmp_mode", e.pg.Mode()))
 
-	results := e.pg.PingMany(ctx, hosts)
-	for host, r := range results {
-		e.recordProbe(NormalizeHost(host), r)
+	// Chunked so verdicts land while the phase runs: one batch over a whole mesh
+	// reports nothing until it is over, and loses everything if the sweep is cut short.
+	done := 0
+	for start := 0; start < len(hosts); start += probeChunk {
+		if ctx.Err() != nil {
+			break
+		}
+		batch := hosts[start:min(start+probeChunk, len(hosts))]
+		results := e.pg.PingMany(ctx, batch)
+		for host, r := range results {
+			e.recordProbe(NormalizeHost(host), r)
+		}
+		done += len(batch)
+		e.patch(func(s *model.ScanStatus) { s.NodeProgress = done })
 	}
-	e.patch(func(s *model.ScanStatus) { s.NodeProgress = len(results) })
 }
+
+// probeChunk is how many hosts one probe round commits at a time.
+const probeChunk = 64
 
 // refreshDetail is the safety net for the detail lane's misses and RelazyAfter re-laxes.
 func (e *Engine) refreshDetail(ctx context.Context) {

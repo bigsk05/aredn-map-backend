@@ -10,6 +10,7 @@ import (
 	"aredn-map/internal/repository/aredn"
 )
 
+// expand crawls one node's record and links, then queues everything it points at.
 func (e *Engine) expand(ctx context.Context, t task, enqueue func(task), pool *probePool) {
 	if ctx.Err() != nil {
 		return
@@ -112,7 +113,7 @@ func (e *Engine) expand(ctx context.Context, t task, enqueue func(task), pool *p
 	})
 }
 
-// absorbMeshHosts registers a node's /a/mesh host table as names that are never scanned.
+// absorbMeshHosts registers a node's /a/mesh host table as known names with no route proven.
 func (e *Engine) absorbMeshHosts(ctx context.Context, host string) {
 	md, err := e.cl.FetchMesh(ctx, host)
 	if err != nil || md == nil {
@@ -163,5 +164,3 @@ func (e *Engine) absorbMeshHosts(ctx context.Context, host string) {
 		})
 	}
 }
-
-// probe sweeps up reached nodes the live pool dropped; mesh-list names are never pinged.

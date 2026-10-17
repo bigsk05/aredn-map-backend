@@ -14,10 +14,12 @@ type Counts struct {
 	Located      int `json:"located"`
 	Supernodes   int `json:"supernodes"`
 	Pending      int `json:"pending"`
-	Links        int `json:"links"`
-	Services     int `json:"services"`
-	Unreachable  int `json:"unreachable"`
-	Crawled      int `json:"crawled"`
+	// Failed is how many known nodes never gave up a status page, however often we looked.
+	Links       int `json:"links"`
+	Services    int `json:"services"`
+	Failed      int `json:"failed"`
+	Unreachable int `json:"unreachable"`
+	Crawled     int `json:"crawled"`
 }
 
 // Phase describes what the engine is doing right now.

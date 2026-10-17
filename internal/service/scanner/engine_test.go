@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"slices"
 	"sort"
-	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -191,7 +190,7 @@ func (p *fakePinger) Ping(ctx context.Context, host string) ping.Result {
 
 func (p *fakePinger) PingMany(ctx context.Context, hosts []string) map[string]ping.Result {
 	p.mu.Lock()
-	p.hosts = append([]string(nil), hosts...)
+	p.hosts = append(p.hosts, hosts...)
 	p.mu.Unlock()
 	out := make(map[string]ping.Result, len(hosts))
 	for _, h := range hosts {
@@ -319,14 +318,14 @@ func TestUnlimitedHopsReachesWholeChain(t *testing.T) {
 	}
 }
 
-func TestMeshHostsRegisteredButNeverProbed(t *testing.T) {
+func TestMeshHostsGetProbedAndDetailed(t *testing.T) {
 	net := newFakeNet()
 	net.add("localnode", testNode("localnode", "SEED"), []model.Link{
 		testLink("localnode", "supernode", model.LinkTypeDtD, model.ContainerNeighborhood),
 	})
 	net.add("supernode", testNode("supernode", "SUPERNODE"), nil)
 
-	// The /a/mesh table stands for distant cloud peers we have no path to.
+	// The /a/mesh table lists peers this node routes to but never named as a neighbour.
 	md := &aredn.MeshData{Hosts: map[string][]string{}, NodeNames: []string{}}
 	for i := range 400 {
 		h := fmt.Sprintf("cloud%03d", i)
@@ -334,34 +333,46 @@ func TestMeshHostsRegisteredButNeverProbed(t *testing.T) {
 		md.NodeNames = append(md.NodeNames, h)
 	}
 	net.mesh["supernode"] = md
+	// Two of them answer: the rest stand down as unreachable, which is still an answer.
+	net.add("cloud007", testNode("cloud007", "CLOUD007"), nil)
 
-	pg := &fakePinger{}
+	pg := &fakePinger{live: map[string]bool{"cloud007": true, "localnode": true, "supernode": true}}
 	cfg := testCfg()
-	// Unlimited hops on purpose: a host-table name is never a scan target at any hop limit.
 	cfg.Scan.MaxHops = -1
 	cfg.Scan.RelazyAfter = time.Minute
 	eng, st := build(t, cfg, net, pg)
 	sweep(t, eng)
 
+	probed := map[string]bool{}
 	for _, h := range pg.probed() {
-		if strings.HasPrefix(h, "cloud") {
-			t.Fatalf("probe set includes mesh-list stub %q; the sweep would ping %d distant peers", h, 400)
-		}
+		probed[h] = true
 	}
+	fetched := map[string]bool{}
 	net.mu.Lock()
 	seq := append([]string(nil), net.selfSeq...)
 	net.mu.Unlock()
 	for _, h := range seq {
-		if strings.HasPrefix(h, "cloud") {
-			t.Fatalf("a host-table name was fetched (%q); only adjacency may be scanned", h)
+		fetched[h] = true
+	}
+	for i := range 400 {
+		h := fmt.Sprintf("cloud%03d", i)
+		if !probed[h] {
+			t.Fatalf("%s never pinged: a host-table name stayed unknown forever", h)
+		}
+		if !fetched[h] {
+			t.Fatalf("%s never fetched: a host-table name stayed unscanned forever", h)
 		}
 	}
-	if len(seq) == 0 {
-		t.Fatal("nothing was fetched at all; the adjacency set went missing too")
-	}
+
 	c := st.Counts()
+	if c.Unprobed != 0 {
+		t.Errorf("Unprobed = %d after a full sweep, want every known node to hold a verdict", c.Unprobed)
+	}
 	if c.Total <= c.Crawled {
-		t.Errorf("Total=%d Crawled=%d, want stubs registered beyond the reached set", c.Total, c.Crawled)
+		t.Errorf("Total=%d Crawled=%d, want the unreachable peers registered but not crawled", c.Total, c.Crawled)
+	}
+	if c.Online == 0 {
+		t.Error("Online = 0, want the answering cloud node counted")
 	}
 	if c.Unprobed != c.Total-c.Online-c.Offline {
 		t.Errorf("counts not a partition: %+v", c)

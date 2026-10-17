@@ -8,7 +8,7 @@ import (
 	"aredn-map/internal/model"
 )
 
-// Two hold-backs keep a sweep off the access point's resolver: host-table names and parked nodes.
+// One hold-back keeps a sweep off a dead node: the park. Host-table names are ordinary work.
 
 func meshListStub(host string) *model.Node {
 	return &model.Node{
@@ -17,32 +17,57 @@ func meshListStub(host string) *model.Node {
 	}
 }
 
-func TestIDsNeedingDetailHoldsBackMeshListNames(t *testing.T) {
+func TestIDsNeedingDetailIncludesMeshListNames(t *testing.T) {
 	s := New()
 	s.UpsertNode(discoveryStub("neighbour", 1))  // reached through an observed link
 	s.UpsertNode(meshListStub("far-cloud-peer")) // only named in a host table
 	s.MergeNode("peer-seen-in-a-dialog", func(n *model.Node) { n.Source = "link-dialog" })
 
 	got := s.IDsNeedingDetail(-1, time.Minute)
-	if containsID(got, "far-cloud-peer") {
-		t.Errorf("candidates = %v, want the host-table name held back", got)
+	if !containsID(got, "far-cloud-peer") {
+		t.Errorf("candidates = %v, want the host-table name queued like any other", got)
 	}
-	// A peer at the end of a real link is how the tree grows outward, so it stays.
 	if !containsID(got, "neighbour") || !containsID(got, "peer-seen-in-a-dialog") {
 		t.Errorf("candidates = %v, want both adjacency-derived peers", got)
 	}
+	if got[len(got)-1] != "far-cloud-peer" {
+		t.Errorf("order = %v, want the node of unknown distance last", got)
+	}
 }
 
-// A host-table name that later turns out to be a real neighbour must not stay frozen.
-func TestMeshListNameReopensWhenSeenInALink(t *testing.T) {
+// A parked node stays out of the queue until its due time, host-table name or not.
+func TestParkedNameIsHeldBackUntilDue(t *testing.T) {
 	s := New()
 	s.UpsertNode(meshListStub("far-cloud-peer"))
+	due := time.Now().Add(30 * time.Minute)
+	s.MarkFailure("far-cloud-peer", "dial tcp: no route", due)
+
 	if got := s.IDsNeedingDetail(-1, time.Minute); containsID(got, "far-cloud-peer") {
-		t.Fatalf("a pure host-table name was queued: %v", got)
+		t.Errorf("candidates = %v, want the parked name held back until %v", got, due)
 	}
-	s.UpsertNode(&model.Node{Hostname: "far-cloud-peer", Source: "link-dialog"})
+	s.MarkReached("far-cloud-peer")
 	if got := s.IDsNeedingDetail(-1, time.Minute); !containsID(got, "far-cloud-peer") {
-		t.Errorf("after appearing in a link dialog it is still held back: %v", got)
+		t.Errorf("after unparking it is still held back: %v", got)
+	}
+}
+
+// A parked failure is reported as failed, not as work still queued.
+func TestParkedFailureCountsAsFailedNotPending(t *testing.T) {
+	s := New()
+	s.UpsertNode(discoveryStub("queued", 1))
+	s.UpsertNode(discoveryStub("dead-peer", 2))
+
+	if c := s.Counts(); c.Pending != 2 || c.Failed != 0 {
+		t.Fatalf("before any attempt: pending=%d failed=%d, want 2/0", c.Pending, c.Failed)
+	}
+	s.MarkFailure("dead-peer", "aredn: no route to dead-peer", time.Now().Add(30*time.Minute))
+
+	c := s.Counts()
+	if c.Pending != 1 {
+		t.Errorf("Pending = %d, want only the never-attempted node queued", c.Pending)
+	}
+	if c.Failed != 1 {
+		t.Errorf("Failed = %d, want the parked node counted as a failure", c.Failed)
 	}
 }
 
