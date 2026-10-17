@@ -1,0 +1,185 @@
+<div class="dialog">
+    <div>
+    <input style="position:absolute;top:-10000px">
+    <button id="dialog-help" class="" hx-get="/a/neighbor-device?m=02:00:00:00:00:03" hx-trigger="click delay:10ms" hx-target="#ctrl-modal" hx-headers='{"Include-Help":"1","Include-Advanced":"0"}'>Help</button>
+    <div class="t">Neighborhood Node</div>
+    <hr/>
+</div>
+
+    <div>
+        
+        <div class="neighbor">
+            <div class="o">
+                <div><a href="http://tst09-ptp.local.mesh" target="_blank">tst09-ptp</a></div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>RF</div>
+                    <div>type</div>
+                </div>
+                <div class="i">
+                    <div>02:00:00:00:00:03</div>
+                    <div>mac address</div>
+                </div>
+                <div class="i">
+                    <div>10.100.6.67</div>
+                    <div>ip address</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>Ubiquiti PowerBeam M5 300</div>
+                    <div>model</div>
+                </div>
+                <div class="i">
+                    <div>3.25.8.0</div>
+                    <div>firmware</div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div><a href="https://worldmap.arednmesh.org/#12/59.888074/-2.455294" target="_blank">59.888074</a></div>
+                    <div>latitude</div>
+                </div>
+                <div class="i">
+                    <div><a href="https://worldmap.arednmesh.org/#12/59.888074/-2.455294" target="_blank">-2.455294</a></div>
+                    <div>longitude</div>
+                </div>
+                <div class="i">
+                    <div><a href="https://worldmap.arednmesh.org/#12/59.888074/-2.455294" target="_blank">3.4 miles</a></div>
+                    <div>distance</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>100%</div>
+                    <div>lq | rx success</div>
+                </div>
+                <div class="i">
+                    <div>100%</div>
+                    <div>nlq | tx success</div>
+                </div>
+                <div class="i">
+                    <div>1.0</div>
+                    <div>etx</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>3.9 ms</div>
+                    <div>ping time</div>
+                </div>
+                <div class="i">
+                    <div>100%</div>
+                    <div>ping success</div>
+                </div>
+                <div class="i">
+                    <div>2.0 pkt/sec</div>
+                    <div>avg tx</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>3.0 ms</div>
+                    <div>neighbor ping time</div>
+                </div>
+                <div class="i">
+                    <div>100%</div>
+                    <div>neighbor ping success</div>
+                </div>
+                <div class="i">
+                    <div>43%</div>
+                    <div>neighbor errors</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>23</div>
+                    <div>local snr</div>
+                </div>
+                <div class="i">
+                    <div>23</div>
+                    <div>neighbor snr</div>
+                </div>
+                <div class="i">
+                    <div>0.0%</div>
+                    <div>tx failures</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>27.7 Mbps</div>
+                    <div>physical rx bitrate</div>
+                </div>
+                <div class="i">
+                    <div>37.6 Mbps</div>
+                    <div>physical tx bitrate</div>
+                </div>
+                <div class="i">
+                    <div>79.1%</div>
+                    <div>tx retransmissions</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>routing</div>
+                    <div>state</div>
+                </div>
+                <div class="i">
+                    <div>166</div>
+                    <div>babel routes</div>
+                </div>
+                <div class="i">
+                    <div>257</div>
+                    <div>babel metric</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>now</div>
+                    <div>last seen</div>
+                </div>
+                <div class="i">
+                    <div>13</div>
+                    <div>olsr routes</div>
+                </div>
+                <div></div>
+            </div>
+            <div id="neighbor-device-chart">
+                <svg viewBox="0 0 200 100" preserveAspectRatio="meet">
+                    <g class="frame">
+                        <polyline points="10,10 10,90 190,90" />
+                        <text x="9" y="4">dBm</text>
+                        <text x="8" y="10">0</text>
+                        <text x="8" y="23">-20</text>
+                        <text x="8" y="37">-40</text>
+                        <text x="8" y="50">-60</text>
+                        <text x="8" y="63">-80</text>
+                        <text x="8" y="77">-100</text>
+                        <text x="8" y="90">-120</text>
+                    </g>
+                    <g class="data"><polyline class='signal' points='10,58.666666666667 12,58 14,58 16,60.666666666667 18,58.666666666667 20,58 22,58 24,58 26,58 28,57.333333333333 30,60 32,60.666666666667 34,57.333333333333 36,57.333333333333 38,60 40,58.666666666667 42,58.666666666667 44,58 46,60.666666666667 48,57.333333333333 50,60.666666666667 52,58.666666666667 54,58.666666666667 56,58 58,58 60,59.333333333333 62,57.333333333333 64,60 66,58 68,58.666666666667 70,58 72,57.333333333333 74,57.333333333333 76,58 78,58.666666666667 80,58 82,57.333333333333 84,57.333333333333 86,58 88,58.666666666667 90,58.666666666667 92,58.666666666667 94,57.333333333333 96,60 98,58 100,58 102,58.666666666667 104,58 106,57.333333333333 108,58 110,58.666666666667 112,58.666666666667 114,58.666666666667 116,58.666666666667 118,58.666666666667 120,59.333333333333 122,58 124,58.666666666667 126,58 128,58 130,58.666666666667 132,58 134,58.666666666667 136,58 138,58.666666666667 140,58 142,58 144,58.666666666667 146,58.666666666667 148,58.666666666667 150,58 152,59.333333333333 154,58 156,58.666666666667 158,58 160,57.333333333333 162,58 164,58 166,58 168,58.666666666667 170,58 172,59.333333333333 174,60 176,60 178,60 180,59.333333333333 182,58 184,58 186,58 188,59.333333333333 ' /><polyline class='noise' points='10,73.333333333333 12,73.333333333333 14,73.333333333333 16,73.333333333333 18,73.333333333333 20,73.333333333333 22,73.333333333333 24,73.333333333333 26,73.333333333333 28,73.333333333333 30,73.333333333333 32,73.333333333333 34,73.333333333333 36,73.333333333333 38,73.333333333333 40,73.333333333333 42,73.333333333333 44,73.333333333333 46,73.333333333333 48,73.333333333333 50,73.333333333333 52,73.333333333333 54,73.333333333333 56,73.333333333333 58,73.333333333333 60,73.333333333333 62,73.333333333333 64,73.333333333333 66,73.333333333333 68,73.333333333333 70,73.333333333333 72,73.333333333333 74,73.333333333333 76,73.333333333333 78,73.333333333333 80,73.333333333333 82,73.333333333333 84,73.333333333333 86,73.333333333333 88,73.333333333333 90,73.333333333333 92,73.333333333333 94,73.333333333333 96,73.333333333333 98,73.333333333333 100,73.333333333333 102,73.333333333333 104,73.333333333333 106,73.333333333333 108,73.333333333333 110,73.333333333333 112,73.333333333333 114,73.333333333333 116,73.333333333333 118,73.333333333333 120,73.333333333333 122,73.333333333333 124,73.333333333333 126,73.333333333333 128,73.333333333333 130,73.333333333333 132,73.333333333333 134,73.333333333333 136,73.333333333333 138,73.333333333333 140,73.333333333333 142,73.333333333333 144,73.333333333333 146,73.333333333333 148,73.333333333333 150,73.333333333333 152,73.333333333333 154,73.333333333333 156,73.333333333333 158,73.333333333333 160,73.333333333333 162,73.333333333333 164,73.333333333333 166,73.333333333333 168,73.333333333333 170,73.333333333333 172,73.333333333333 174,73.333333333333 176,73.333333333333 178,73.333333333333 180,73.333333333333 182,73.333333333333 184,73.333333333333 186,73.333333333333 188,73.333333333333 ' /></g>
+                    <g class="hints"><g><rect width="2" height="85" x="9" y="5"></rect><text y="10"><tspan x="14">10/12/2026 20:23:50</tspan><tspan x="14" dy="6px">Signal: -73 dBm</tspan><tspan x="14" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="11" y="5"></rect><text y="10"><tspan x="16">10/12/2026 20:56:32</tspan><tspan x="16" dy="6px">Signal: -72 dBm</tspan><tspan x="16" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="13" y="5"></rect><text y="10"><tspan x="18">10/12/2026 21:29:10</tspan><tspan x="18" dy="6px">Signal: -72 dBm</tspan><tspan x="18" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="15" y="5"></rect><text y="10"><tspan x="20">10/12/2026 22:01:53</tspan><tspan x="20" dy="6px">Signal: -76 dBm</tspan><tspan x="20" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="17" y="5"></rect><text y="10"><tspan x="22">10/12/2026 22:34:28</tspan><tspan x="22" dy="6px">Signal: -73 dBm</tspan><tspan x="22" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="19" y="5"></rect><text y="10"><tspan x="24">10/12/2026 23:07:23</tspan><tspan x="24" dy="6px">Signal: -72 dBm</tspan><tspan x="24" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="21" y="5"></rect><text y="10"><tspan x="26">10/12/2026 23:40:10</tspan><tspan x="26" dy="6px">Signal: -72 dBm</tspan><tspan x="26" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="23" y="5"></rect><text y="10"><tspan x="28">10/13/2026 00:13:56</tspan><tspan x="28" dy="6px">Signal: -72 dBm</tspan><tspan x="28" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="25" y="5"></rect><text y="10"><tspan x="30">10/13/2026 00:46:33</tspan><tspan x="30" dy="6px">Signal: -72 dBm</tspan><tspan x="30" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="27" y="5"></rect><text y="10"><tspan x="32">10/13/2026 01:19:29</tspan><tspan x="32" dy="6px">Signal: -71 dBm</tspan><tspan x="32" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="29" y="5"></rect><text y="10"><tspan x="34">10/13/2026 01:52:38</tspan><tspan x="34" dy="6px">Signal: -75 dBm</tspan><tspan x="34" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="31" y="5"></rect><text y="10"><tspan x="36">10/13/2026 02:25:44</tspan><tspan x="36" dy="6px">Signal: -76 dBm</tspan><tspan x="36" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="33" y="5"></rect><text y="10"><tspan x="38">10/13/2026 02:59:21</tspan><tspan x="38" dy="6px">Signal: -71 dBm</tspan><tspan x="38" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="35" y="5"></rect><text y="10"><tspan x="40">10/13/2026 03:32:25</tspan><tspan x="40" dy="6px">Signal: -71 dBm</tspan><tspan x="40" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="37" y="5"></rect><text y="10"><tspan x="42">10/13/2026 04:05:22</tspan><tspan x="42" dy="6px">Signal: -75 dBm</tspan><tspan x="42" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="39" y="5"></rect><text y="10"><tspan x="44">10/13/2026 04:37:46</tspan><tspan x="44" dy="6px">Signal: -73 dBm</tspan><tspan x="44" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="41" y="5"></rect><text y="10"><tspan x="46">10/13/2026 05:10:28</tspan><tspan x="46" dy="6px">Signal: -73 dBm</tspan><tspan x="46" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="43" y="5"></rect><text y="10"><tspan x="48">10/13/2026 05:42:56</tspan><tspan x="48" dy="6px">Signal: -72 dBm</tspan><tspan x="48" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="45" y="5"></rect><text y="10"><tspan x="50">10/13/2026 06:15:36</tspan><tspan x="50" dy="6px">Signal: -76 dBm</tspan><tspan x="50" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="47" y="5"></rect><text y="10"><tspan x="52">10/13/2026 06:48:11</tspan><tspan x="52" dy="6px">Signal: -71 dBm</tspan><tspan x="52" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="49" y="5"></rect><text y="10"><tspan x="54">10/13/2026 07:20:43</tspan><tspan x="54" dy="6px">Signal: -76 dBm</tspan><tspan x="54" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="51" y="5"></rect><text y="10"><tspan x="56">10/13/2026 07:53:16</tspan><tspan x="56" dy="6px">Signal: -73 dBm</tspan><tspan x="56" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="53" y="5"></rect><text y="10"><tspan x="58">10/13/2026 08:26:34</tspan><tspan x="58" dy="6px">Signal: -73 dBm</tspan><tspan x="58" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="55" y="5"></rect><text y="10"><tspan x="60">10/13/2026 08:59:06</tspan><tspan x="60" dy="6px">Signal: -72 dBm</tspan><tspan x="60" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="57" y="5"></rect><text y="10"><tspan x="62">10/13/2026 09:31:29</tspan><tspan x="62" dy="6px">Signal: -72 dBm</tspan><tspan x="62" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="59" y="5"></rect><text y="10"><tspan x="64">10/13/2026 10:04:03</tspan><tspan x="64" dy="6px">Signal: -74 dBm</tspan><tspan x="64" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="61" y="5"></rect><text y="10"><tspan x="66">10/13/2026 10:36:33</tspan><tspan x="66" dy="6px">Signal: -71 dBm</tspan><tspan x="66" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="63" y="5"></rect><text y="10"><tspan x="68">10/13/2026 11:09:10</tspan><tspan x="68" dy="6px">Signal: -75 dBm</tspan><tspan x="68" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="65" y="5"></rect><text y="10"><tspan x="70">10/13/2026 11:41:29</tspan><tspan x="70" dy="6px">Signal: -72 dBm</tspan><tspan x="70" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="67" y="5"></rect><text y="10"><tspan x="72">10/13/2026 12:14:29</tspan><tspan x="72" dy="6px">Signal: -73 dBm</tspan><tspan x="72" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="69" y="5"></rect><text y="10"><tspan x="74">10/13/2026 12:47:38</tspan><tspan x="74" dy="6px">Signal: -72 dBm</tspan><tspan x="74" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="71" y="5"></rect><text y="10"><tspan x="76">10/13/2026 13:19:58</tspan><tspan x="76" dy="6px">Signal: -71 dBm</tspan><tspan x="76" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="73" y="5"></rect><text y="10"><tspan x="78">10/13/2026 13:53:39</tspan><tspan x="78" dy="6px">Signal: -71 dBm</tspan><tspan x="78" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="75" y="5"></rect><text y="10"><tspan x="80">10/13/2026 14:25:57</tspan><tspan x="80" dy="6px">Signal: -72 dBm</tspan><tspan x="80" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="77" y="5"></rect><text y="10"><tspan x="82">10/13/2026 14:58:45</tspan><tspan x="82" dy="6px">Signal: -73 dBm</tspan><tspan x="82" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="79" y="5"></rect><text y="10"><tspan x="84">10/13/2026 15:31:16</tspan><tspan x="84" dy="6px">Signal: -72 dBm</tspan><tspan x="84" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="81" y="5"></rect><text y="10"><tspan x="86">10/13/2026 16:04:11</tspan><tspan x="86" dy="6px">Signal: -71 dBm</tspan><tspan x="86" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="83" y="5"></rect><text y="10"><tspan x="88">10/13/2026 16:36:54</tspan><tspan x="88" dy="6px">Signal: -71 dBm</tspan><tspan x="88" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="85" y="5"></rect><text y="10"><tspan x="90">10/13/2026 17:09:36</tspan><tspan x="90" dy="6px">Signal: -72 dBm</tspan><tspan x="90" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="87" y="5"></rect><text y="10"><tspan x="92">10/13/2026 17:41:55</tspan><tspan x="92" dy="6px">Signal: -73 dBm</tspan><tspan x="92" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="89" y="5"></rect><text y="10"><tspan x="94">10/13/2026 18:14:12</tspan><tspan x="94" dy="6px">Signal: -73 dBm</tspan><tspan x="94" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="91" y="5"></rect><text y="10"><tspan x="96">10/13/2026 18:46:31</tspan><tspan x="96" dy="6px">Signal: -73 dBm</tspan><tspan x="96" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="93" y="5"></rect><text y="10"><tspan x="98">10/13/2026 19:19:33</tspan><tspan x="98" dy="6px">Signal: -71 dBm</tspan><tspan x="98" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="95" y="5"></rect><text y="10"><tspan x="100">10/13/2026 19:52:36</tspan><tspan x="100" dy="6px">Signal: -75 dBm</tspan><tspan x="100" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="97" y="5"></rect><text y="10"><tspan x="102">10/13/2026 20:24:48</tspan><tspan x="102" dy="6px">Signal: -72 dBm</tspan><tspan x="102" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="99" y="5"></rect><text y="10"><tspan x="104">10/13/2026 20:57:40</tspan><tspan x="104" dy="6px">Signal: -72 dBm</tspan><tspan x="104" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="101" y="5"></rect><text y="10"><tspan x="106">10/13/2026 21:30:21</tspan><tspan x="106" dy="6px">Signal: -73 dBm</tspan><tspan x="106" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="103" y="5"></rect><text y="10"><tspan x="108">10/13/2026 22:03:02</tspan><tspan x="108" dy="6px">Signal: -72 dBm</tspan><tspan x="108" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="105" y="5"></rect><text y="10"><tspan x="110">10/13/2026 22:35:35</tspan><tspan x="110" dy="6px">Signal: -71 dBm</tspan><tspan x="110" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="107" y="5"></rect><text y="10"><tspan x="112">10/13/2026 23:08:31</tspan><tspan x="112" dy="6px">Signal: -72 dBm</tspan><tspan x="112" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="109" y="5"></rect><text y="10"><tspan x="114">10/13/2026 23:40:50</tspan><tspan x="114" dy="6px">Signal: -73 dBm</tspan><tspan x="114" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="111" y="5"></rect><text y="10"><tspan x="116">10/14/2026 00:13:40</tspan><tspan x="116" dy="6px">Signal: -73 dBm</tspan><tspan x="116" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="113" y="5"></rect><text y="10"><tspan x="118">10/14/2026 00:46:04</tspan><tspan x="118" dy="6px">Signal: -73 dBm</tspan><tspan x="118" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="115" y="5"></rect><text y="10"><tspan x="120">10/14/2026 01:18:42</tspan><tspan x="120" dy="6px">Signal: -73 dBm</tspan><tspan x="120" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="117" y="5"></rect><text y="10"><tspan x="122">10/14/2026 01:50:54</tspan><tspan x="122" dy="6px">Signal: -73 dBm</tspan><tspan x="122" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="119" y="5"></rect><text y="10"><tspan x="124">10/14/2026 02:23:20</tspan><tspan x="124" dy="6px">Signal: -74 dBm</tspan><tspan x="124" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="121" y="5"></rect><text y="10"><tspan x="126">10/14/2026 02:56:59</tspan><tspan x="126" dy="6px">Signal: -72 dBm</tspan><tspan x="126" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="123" y="5"></rect><text y="10"><tspan x="128">10/14/2026 03:29:21</tspan><tspan x="128" dy="6px">Signal: -73 dBm</tspan><tspan x="128" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="125" y="5"></rect><text y="10"><tspan x="130">10/14/2026 04:01:51</tspan><tspan x="130" dy="6px">Signal: -72 dBm</tspan><tspan x="130" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="127" y="5"></rect><text y="10"><tspan x="132">10/14/2026 04:34:39</tspan><tspan x="132" dy="6px">Signal: -72 dBm</tspan><tspan x="132" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="129" y="5"></rect><text y="10"><tspan x="134">10/14/2026 05:07:06</tspan><tspan x="134" dy="6px">Signal: -73 dBm</tspan><tspan x="134" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="131" y="5"></rect><text y="10"><tspan x="136">10/14/2026 05:39:40</tspan><tspan x="136" dy="6px">Signal: -72 dBm</tspan><tspan x="136" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="133" y="5"></rect><text y="10"><tspan x="138">10/14/2026 06:11:53</tspan><tspan x="138" dy="6px">Signal: -73 dBm</tspan><tspan x="138" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="135" y="5"></rect><text y="10"><tspan x="140">10/14/2026 06:44:40</tspan><tspan x="140" dy="6px">Signal: -72 dBm</tspan><tspan x="140" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="137" y="5"></rect><text y="10"><tspan x="142">10/14/2026 07:17:05</tspan><tspan x="142" dy="6px">Signal: -73 dBm</tspan><tspan x="142" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="139" y="5"></rect><text y="10"><tspan x="144">10/14/2026 07:49:57</tspan><tspan x="144" dy="6px">Signal: -72 dBm</tspan><tspan x="144" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="141" y="5"></rect><text y="10"><tspan x="146">10/14/2026 08:22:35</tspan><tspan x="146" dy="6px">Signal: -72 dBm</tspan><tspan x="146" dy="6px">Noise: -95 dBm</tspan></text></g><g><rect width="2" height="85" x="143" y="5"></rect><text y="10"><tspan x="148">10/14/2026 08:55:06</tspan><tspan x="148" dy="6px">Signal: -73 dBm</tspan><tspan x="148" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="145" y="5"></rect><text y="10"><tspan x="142">10/14/2026 09:27:34</tspan><tspan x="142" dy="6px">Signal: -73 dBm</tspan><tspan x="142" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="147" y="5"></rect><text y="10"><tspan x="144">10/14/2026 10:00:05</tspan><tspan x="144" dy="6px">Signal: -73 dBm</tspan><tspan x="144" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="149" y="5"></rect><text y="10"><tspan x="146">10/14/2026 10:32:58</tspan><tspan x="146" dy="6px">Signal: -72 dBm</tspan><tspan x="146" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="151" y="5"></rect><text y="10"><tspan x="148">10/14/2026 11:05:14</tspan><tspan x="148" dy="6px">Signal: -74 dBm</tspan><tspan x="148" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="153" y="5"></rect><text y="10"><tspan x="150">10/14/2026 11:38:09</tspan><tspan x="150" dy="6px">Signal: -72 dBm</tspan><tspan x="150" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="155" y="5"></rect><text y="10"><tspan x="152">10/14/2026 12:10:26</tspan><tspan x="152" dy="6px">Signal: -73 dBm</tspan><tspan x="152" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="157" y="5"></rect><text y="10"><tspan x="154">10/14/2026 12:43:18</tspan><tspan x="154" dy="6px">Signal: -72 dBm</tspan><tspan x="154" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="159" y="5"></rect><text y="10"><tspan x="156">10/14/2026 13:15:47</tspan><tspan x="156" dy="6px">Signal: -71 dBm</tspan><tspan x="156" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="161" y="5"></rect><text y="10"><tspan x="158">10/14/2026 13:48:31</tspan><tspan x="158" dy="6px">Signal: -72 dBm</tspan><tspan x="158" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="163" y="5"></rect><text y="10"><tspan x="160">10/14/2026 14:21:03</tspan><tspan x="160" dy="6px">Signal: -72 dBm</tspan><tspan x="160" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="165" y="5"></rect><text y="10"><tspan x="162">10/14/2026 14:53:29</tspan><tspan x="162" dy="6px">Signal: -72 dBm</tspan><tspan x="162" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="167" y="5"></rect><text y="10"><tspan x="164">10/14/2026 15:26:31</tspan><tspan x="164" dy="6px">Signal: -73 dBm</tspan><tspan x="164" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="169" y="5"></rect><text y="10"><tspan x="166">10/14/2026 15:59:31</tspan><tspan x="166" dy="6px">Signal: -72 dBm</tspan><tspan x="166" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="171" y="5"></rect><text y="10"><tspan x="168">10/14/2026 16:31:47</tspan><tspan x="168" dy="6px">Signal: -74 dBm</tspan><tspan x="168" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="173" y="5"></rect><text y="10"><tspan x="170">10/14/2026 17:04:31</tspan><tspan x="170" dy="6px">Signal: -75 dBm</tspan><tspan x="170" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="175" y="5"></rect><text y="10"><tspan x="172">10/14/2026 17:36:50</tspan><tspan x="172" dy="6px">Signal: -75 dBm</tspan><tspan x="172" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="177" y="5"></rect><text y="10"><tspan x="174">10/14/2026 18:09:36</tspan><tspan x="174" dy="6px">Signal: -75 dBm</tspan><tspan x="174" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="179" y="5"></rect><text y="10"><tspan x="176">10/14/2026 18:42:39</tspan><tspan x="176" dy="6px">Signal: -74 dBm</tspan><tspan x="176" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="181" y="5"></rect><text y="10"><tspan x="178">10/14/2026 19:15:47</tspan><tspan x="178" dy="6px">Signal: -72 dBm</tspan><tspan x="178" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="183" y="5"></rect><text y="10"><tspan x="180">10/14/2026 19:48:17</tspan><tspan x="180" dy="6px">Signal: -72 dBm</tspan><tspan x="180" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="185" y="5"></rect><text y="10"><tspan x="182">10/14/2026 20:20:35</tspan><tspan x="182" dy="6px">Signal: -72 dBm</tspan><tspan x="182" dy="6px">Noise: -95 dBm</tspan></text></g><g class="r"><rect width="2" height="85" x="187" y="5"></rect><text y="10"><tspan x="184">10/14/2026 20:53:00</tspan><tspan x="184" dy="6px">Signal: -74 dBm</tspan><tspan x="184" dy="6px">Noise: -95 dBm</tspan></text></g></g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="ctrl-modal-footer">
+    <hr/>
+    <button id="dialog-done" onclick="htmx.find('#ctrl-modal').style.display='none';const f=()=>htmx.find('body.htmx-request')?setTimeout(f,10):(m=htmx.find('#ctrl-modal'),m.close(),m.style.display='');setTimeout(f,100)">Done</button>
+</div>
+
+    <script>
+    (function(){
+    {
+    const d = document.querySelector('dialog');
+    if (d && !d.open) {
+        d.showModal();
+    }
+}
+
+    })();
+    </script>
+</div>

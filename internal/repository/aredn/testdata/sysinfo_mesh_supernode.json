@@ -1,0 +1,21 @@
+{
+  "api_version": "2.0",
+  "node": "TST04-SUPERNODE",
+  "ip": "10.66.66.66",
+  "nodes": [
+    { "name": "TST04-SUPERNODE", "ip": "10.66.66.66" },
+    { "name": "TST06", "ip": "10.100.4.200" },
+    { "name": "TST12-HAP", "ip": "10.100.13.223" },
+    { "name": "TST12-HAP", "ip": "10.100.13.223" },
+    { "name": "", "ip": "10.0.0.9" },
+    { "name": "NOIP-HOST", "ip": "" }
+  ],
+  "hosts": [
+    { "name": "TST-PHONE", "ip": "10.100.9.196" }
+  ],
+  "services": [
+    { "name": "TST17 [phone]", "ip": "10.100.10.43", "link": "", "protocol": "tcp" },
+    { "name": "DIAL 1014 OR DIRECT-IP 10.100.12.117", "ip": "10.100.11.83", "link": "http://10.100.12.117:80/", "protocol": "tcp" },
+    { "name": "NO-TARGET", "ip": "", "link": "", "protocol": "udp" }
+  ]
+}

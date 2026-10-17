@@ -1,0 +1,57 @@
+server:
+  host: 0.0.0.0
+  port: 8899
+  # Origins allowed to read this API cross-origin; empty means any. The frontend is
+  # a static site on its own domain, so name it once deployed.
+  allow_origins: []
+  # Optional: serve a built frontend bundle from this process. Empty, which is the
+  # default, means the API only. Give an absolute path or one relative to the cwd.
+  static_dir: ""
+
+scan:
+  seeds:
+    - localnode.local.mesh
+  cron: "0 */30 * * * *"
+  cron_zone: Asia/Shanghai
+  run_on_startup: true
+  max_hops: -1
+  max_nodes: 0
+  worker_goroutines: 32
+  detail_concurrency: 6
+  node_timeout: 12s
+  sweep_timeout: 45m
+  defer_detail_beyond_hops: 2
+  absorb_mesh_hosts: true
+  relazy_after: 10m
+  revisit_after: 30m
+
+http:
+  timeout: 12s
+  connect_timeout: 4s
+  max_retries: 2
+  retry_backoff: 800ms
+
+icmp:
+  mode: auto
+  count: 3
+  interval: 600ms
+  timeout: 3s
+  overall_timeout: 8s
+  concurrency: 16
+
+logging:
+  dir: logs
+  file: aredn-map.log
+  level: info
+  console: true
+  max_size_mb: 20
+  max_backups: 10
+  max_age_days: 30
+  compress: true
+
+map:
+  amap_key: ""
+  amap_security_code: ""
+  center_lat: 31.2304
+  center_lon: 121.4737
+  zoom: 8

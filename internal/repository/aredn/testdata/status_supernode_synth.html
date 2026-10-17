@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- Synthetic page: the cell shapes are copied verbatim from the recorded
+     testdata/status_tst16.html, the values describe a 900 MHz
+     supernode. No node in the crawl reachable from this network publishes that
+     combination, so the supernode and HaLow branches are exercised here. -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>TST03-SUPERNODE status</title>
+</head>
+<body>
+    <div id="c1">
+        <div class="noctrl">
+            <div class="section-title">System</div>
+            <div class="section">
+                <div class="cols">
+                    <div>
+                        <div class="t">Home hub</div>
+                        <div class="s">description</div>
+                    </div>
+                </div>
+                <div class="cols">
+                    <div>
+                        <div class="t">10.66.66.66 <span class="ts">/ 32<span></div>
+                        <div class="s">mesh address</div>
+                    </div>
+                </div>
+            </div>
+            <div class="firmware">
+                <div class="t" style="position:relative">4.26.7.0<div class="firmware-status needupdate"></div></div>
+                <div class="s cols">
+                    <div style="flex:1.5">firmware version</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="c3">
+        <div id="radio-and-antenna">
+            <div class="ctrl" hx-get="status/e/radio-and-antenna" hx-target="#ctrl-modal">
+    <div class="section-title">Radio</div>
+    <div class="section">
+        <div class="t">Ubiquiti LiteBeam M900</div>
+        <div class="s">model</div>
+    </div>
+    <div class="section-title">Mesh</div>
+    <div class="section">
+        <div class="cols">
+            <div>
+                <div class="t">10</div>
+                <div class="s">channel</div>
+            </div>
+            <div>
+                <div class="t">903 - 908 MHz</div>
+                <div class="s">frequencies</div>
+            </div>
+            <div>
+                <div class="t">5 MHz</div>
+                <div class="s">bandwidth</div>
+            </div>
+        </div>
+        <div class="cols">
+            <div>
+                <div class="t">26 dBm</div>
+                <div class="s">tx power</div>
+            </div>
+            <div style="flex:2">
+                <div class="t">10 miles</div>
+                <div class="s">maximum distance (actual)</div>
+            </div>
+        </div>
+    </div>
+    <div class="section-title">Antenna</div>
+    <div class="section">
+        <div class="t">900-1311</div>
+        <div class="s">antenna</div>
+        <div class="cols">
+            <div>
+                <div class="t">90</div>
+                <div class="s">azimuth</div>
+            </div>
+            <div>
+                <div class="t">12 m</div>
+                <div class="s">height</div>
+            </div>
+            <div>
+                <div class="t">-</div>
+                <div class="s">elevation</div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+        <div id="mesh-summary">
+            <div class="noctrl">
+    <div class="section-title">Mesh</div>
+    <div class="section">
+        <div class="cols">
+            <div>
+                <div class="t">241</div>
+                <div class="s">olsr nodes</div>
+            </div>
+            <div>
+                <div class="t">411</div>
+                <div class="s">devices</div>
+            </div>
+            <div>
+                <div class="t">1</div>
+                <div class="s">services</div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+    <div id="location">
+        <div class="ctrl" hx-get="status/e/location" hx-target="#ctrl-modal">
+    <div class="location-image"><iframe loading="lazy" src="https://worldmap.arednmesh.org/#12/31.2304/105.11030"></iframe><div class="overlay"></div></div>
+    <div class="cols">
+        <div class="t">31.2304, 105.11030</div>
+        <div style="flex:0">OM91cf</div>
+    </div>
+    <div class="s">location</div>
+</div>
+    </div>
+    <div id="c2c3">
+        <div id="services"></div>
+        <div id="local-and-neighbor-devices"></div>
+    </div>
+</body>
+</html>

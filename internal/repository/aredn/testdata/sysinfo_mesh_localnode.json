@@ -1,0 +1,20 @@
+{
+  "api_version": "2.0",
+  "node": "TST06",
+  "ip": "10.100.4.200",
+  "lat": 25.01321,
+  "lon": 104.99876,
+  "gridsquare": "PM00gp",
+  "nodes": [
+    { "name": "TST06", "ip": "10.100.4.200" },
+    { "name": "TST02", "ip": "10.100.8.161" },
+    { "name": "TST04-SUPERNODE", "ip": "10.66.66.66" },
+    { "name": "supernode.TST04-SUPERNODE.local.mesh", "ip": "10.66.66.66" },
+    { "name": "TST05-TUNNELSERVER", "ip": "10.66.66.67" }
+  ],
+  "hosts": [
+    { "name": "TST-PHONE", "ip": "10.100.9.196" },
+    { "name": "bridge", "ip": "10.100.7.242" }
+  ],
+  "services": []
+}

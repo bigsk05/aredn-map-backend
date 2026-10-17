@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="utf-8">
+    <link href="/a/css/theme.css" rel="stylesheet">
+    <link href="/a/css/user.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="http://localnode.local.mesh/a/img/favicon.svg">
+    <link rel="manifest" href="/a/manifest.json">
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content = "#e8e8e8">
+    <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+    <title>TST06 status</title>
+</head>
+<body class=" " hx-indicator="body">
+    <dialog id="ctrl-modal" onclose="event.target.innerHTML = ''"></dialog>
+    <div id="all">
+        <div id="nav">
+            <div id="changes" hx-swap-oob='true'></div>
+
+<a class="browser-mode" href="http://localnode.local.mesh"><div id="icon-logo"></div><div>AREDN<span style="font-size:4px">TM</span></div></a>
+<div class="app-mode" id="icon-logo"></div><div>AREDN<span style="font-size:4px">TM</span></div>
+<a class="nav-node-name" href="http://TST06.local.mesh">TST06</a>
+<div id="nav-status" >status</div>
+
+<div style="flex:1"></div>
+<dialog id="login">
+    <div>Password <input type="password"><button>Dismiss</button></div>
+    <div class="error"><div></div></div>
+</dialog>
+<div id="login-icon" class="popup-menu">
+    <label title="Login as admin">
+        <input type="checkbox">
+        <div class="icon login"></div>
+        <div class="menu">
+            <div>Login</div>
+        </div>
+    </label>
+</div>
+<script>
+    const loginDialog = document.getElementById('login');
+    const loginInput = loginDialog.querySelector("input");
+    const loginButton = loginDialog.querySelector("button");
+    const loginError = loginDialog.querySelector(".error > div");
+    document.querySelector("#login-icon .menu > div").addEventListener("click", function()
+    {
+        loginInput.value = "";
+        loginButton.innerText = "Dismiss";
+        loginError.innerText = "";
+        loginDialog.showModal();
+    });
+    function doAuth() {
+        if (loginInput.value === "") {
+            loginDialog.close();
+        }
+        else {
+            fetch(`${location.origin}/a/authenticate?version=1&password=${encodeURIComponent(document.querySelector("#login input").value)}`).then(function(response) {
+                if (response.status === 200) {
+                    response.json().then(function(json) {
+                        loginInput.value = "";
+                        loginButton.innerText = "Dismiss";
+                        if (json.authenticated) {
+                            loginDialog.close();
+                            location.replace(location.origin);
+                        }
+                        else {
+                            loginError.innerText = "Incorrect password";
+                        }
+                    });
+                }
+                else {
+                    loginInput.value = "";
+                    loginButton.innerText = "Dismiss";
+                    loginError.innerText = "Login failure";
+                }
+            });
+        }
+    }
+    loginDialog.querySelector('button').addEventListener("click", doAuth);
+    loginDialog.querySelector('input').addEventListener("change", doAuth);
+    loginDialog.querySelector('input').addEventListener("input", function()
+    {
+        loginError.innerText = "";
+        loginButton.innerText = loginInput.value ? "OK" : "Dismiss";
+    });
+</script>
+
+
+        </div>
+        <div id="panel">
+            <div id="select">
+                <div hx-boost="true" hx-swap="none">
+    <a title="Node status" href="status">
+        <div class="icon status true"></div>
+    </a>
+    <a title="See what is on the local mesh" href="mesh">
+        <div class="icon mesh false"></div>
+    </a>
+    <hr>
+    <a class="app-mode" title="See what is on the cloud mesh from a supernode" href="http://TST04-SUPERNODE.local.mesh/a/mesh">
+        <div class="icon cloudmesh false"></div>
+    </a>
+    <a class="browser-mode" title="See what is on the cloud mesh from a supernode" href="http://TST04-SUPERNODE.local.mesh/a/mesh">
+        <div class="icon cloudmesh"></div>
+    </a>
+    <a class="app-mode" title="Map of the mesh" href="map">
+        <div class="icon map false"></div>
+    </a>
+    <a class="browser-mode" title="Map of the mesh" href="https://worldmap.arednmesh.org/#12/25.01531/104.99390">
+        <div class="icon map"></div>
+    </a>
+</div>
+<div style="flex:1"></div>
+
+
+            </div>
+            <div id="main">
+                <div id="main-container">
+                    <div id="c1">
+    <div id="general" hx-get="u-general" hx-trigger="focus from:window, visibilitychange[document.visibilityState === 'visible'] from:document">
+        <div class="ctrl" hx-get="status/e/basics" hx-target="#ctrl-modal">
+    <div class="node-description">
+        <div class="t">Home access point on the LAN server<br>TST01 - hidden@local.mesh</div>
+        <div class="s">description</div>
+    </div>
+</div>
+<div id="health" hx-get="u-health" hx-trigger="every 30s [document.visibilityState === 'visible']">
+<div class="ctrl" hx-get="status/e/time" hx-target="#ctrl-modal">
+    <div class="t">8:25 pm</div>
+    <div class="s">utc (ntp)</div>
+</div>
+<div class="noctrl">
+    <div class="t">1 day, 8:07</div>
+    <div class="s">uptime</div>
+    <div class="t">0.02&nbsp;&nbsp;0.03&nbsp;&nbsp;0.00</div>
+    <div class="s">load average</div>
+    <div class="cols">
+        <div>
+            <div class="t">233.496 MB</div>
+            <div class="s">free flash</div>
+        </div>
+        <div>
+            <div class="t">985.324 MB</div>
+            <div class="s">free ram</div>
+        </div>
+        <div></div>
+    </div>
+</div>
+
+</div>
+<div class="ctrl" hx-get="status/e/firmware" hx-target="#ctrl-modal">
+    <div class="firmware">
+        <div class="t" style="position:relative">4.26.7.0-custom<div class="firmware-status custom"></div></div>
+        <div class="s cols">
+            <div style="flex:1.5">firmware version</div>
+            <div><a href="https://github.com/example-org/aredn-custom-builds/issues" target="_blank" onclick="event.stopPropagation()">issues</a></div>
+            <div><a href="/snapshots/CHANGELOG.md" target="_blank" onclick="event.stopPropagation()">release notes</a></div>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+<div class="network ctrl" hx-get="status/e/network" hx-target="#ctrl-modal">
+    <div class="section-title">Network</div>
+    <div class="t">10.100.4.200 <span class="ts">/ 32<span></div>
+    <div class="s">mesh address</div>
+    <div class="t">10.100.1.65
+        <span class="ts">/ 29 <span>
+    </div>
+    <div class="s">lan address</div>
+<div class='t'>192.168.0.193 <span class='ts'>/ 24</span></div><div class='s'>wan address (dhcp)</div><div class='t'>192.168.0.1</div><div class='s'>wan gateway</div><div class='t'>8.8.8.8&nbsp;&nbsp;&nbsp;8.8.4.4</div><div class='s'>dns</div></div>
+
+
+    </div>
+    <div id="location">
+        <hr>
+        <div class="ctrl" hx-get="status/e/location" hx-target="#ctrl-modal">
+    <div class="location-image"><iframe loading="lazy" src="https://worldmap.arednmesh.org/#12/25.01531/104.99390"></iframe><div class="overlay"></div></div>
+    <script>
+        (function(){
+            fetch("https://worldmap.arednmesh.org/#12/25.01531/104.99390").catch(_ => document.querySelector(".location-image").style.display = "none");
+        })();
+    </script>
+    <div class="cols">
+        <div class="t">25.01531, 104.99390</div>
+        <div style="flex:0">PM00rv</div>
+    </div>
+    <div class="s">location</div>
+</div>
+
+    </div>
+</div>
+<div id="c2c3">
+    <div id="c2">
+        <div hx-get="u-messages" hx-trigger="every 300s [document.visibilityState === 'visible']">
+        </div>
+        <div id="services" hx-get="u-services" hx-trigger="every 120s [document.visibilityState === 'visible']">
+            <div class="ctrl" hx-get="status/e/local-services" hx-target="#ctrl-modal">
+    <div class="section-title">Local Services</div>
+    <div class="section">
+None    </div>
+</div>
+<hr>
+<div class="noctrl">
+    <div class="section-title">Local Devices</div>
+    <div class="section">
+None    </div>
+</div>
+
+        </div>
+        <div id="local-and-neighbor-devices">
+            <hr>
+            <div hx-get="u-local-and-neighbor-devices" hx-trigger="focus from:window, every 60s [document.visibilityState === 'visible'], visibilitychange[document.visibilityState === 'visible'] from:document">
+            <div class="noctrl" hx-target="#ctrl-modal">
+    <div class="section-title">Local Nodes</div>
+    <div class="section" style="line-height:18px;margin-top:-16px">
+        <div class="cols">
+            <div class="heading"></div>
+            <div class="heading ts cols stats">
+                <div>rx</div><div>rtt</div><div>snr</div><div>n snr</div><div>errors</div><div>mbps</div><div>miles</div>
+            </div>
+        </div>
+<div>None</div>    </div>
+</div>
+<div class="noctrl" hx-target="#ctrl-modal">
+    <div class="section-title">Neighborhood Nodes</div>
+    <div class="section" style="line-height:18px">
+<div class="ctrl cols status excellent" hx-get="neighbor-device?m=02:00:00:00:00:04" title="Link status: excellent"><div class='h'><a onclick="event.stopPropagation()" href='http://tst05-tunnelserver.local.mesh'>tst05-tunnelserver&nbsp;&nbsp;<div class="icon globe"></div></a></div><div class='ts cols stats'><div>100%</div><div>12</div><div>-</div><div>-</div><div>0%</div><div>-</div><div>58.9</div></div></div>    </div>
+</div>
+
+            </div>
+        </div>
+        <script>
+(function(){
+const l = document.getElementById("local-and-neighbor-devices");
+function x(e) {
+    l.removeEventListener("click", x);
+    window["_local-and-neighbor-devices"] = () => { [ ".noctrl:first-child", ".noctrl:nth-child(2)" ].forEach(a => htmx.process(htmx.find(l, a))); htmx.trigger(e.target, "click") }
+    fetch("/a/inject?local-and-neighbor-devices").then(v => v.text()).then(v => eval(v));
+}
+l.addEventListener("click", x);
+})();
+</script>
+
+    </div>
+    <div id="c3">
+        <div id="radio-and-antenna">
+            <div class="noctrl">
+    <div class="section-title">Radio</div>
+    <div class="section">
+        <div class="t">Home Server (S805)</div>
+        <div class="s">model</div>
+    </div>
+</div>
+
+        </div>
+        <div id="mesh-summary">
+            <hr>
+            <div hx-get="u-mesh-summary" hx-trigger="every 120s [document.visibilityState === 'visible']">
+            <div class="ctrl" hx-get="mesh" hx-target="body">
+    <div class="section-title">Mesh</div>
+    <div class="section">
+        <div class="cols">
+            <div>
+                <div class="t">4</div>
+                <div class="s">nodes</div>
+            </div>
+            <div>
+                <div class="t">4</div>
+                <div class="s">devices</div>
+            </div>
+            <div>
+                <div class="t">0</div>
+                <div class="s">services</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div id="dhcp">
+            <hr>
+            <div hx-get="u-dhcp" hx-trigger="every 120s [document.visibilityState === 'visible']">
+            <div class="ctrl" hx-get="status/e/dhcp" hx-target="#ctrl-modal">
+    <div class="section-title">LAN DHCP</div>
+    <div class="section">
+        <div class="t">Active</div>
+        <div class="s">status</div>
+        <div class="cols">
+            <div>
+                <div class="t">10.100.1.65 <span class="ts">/ 29</span></div>
+                <div class="s">gateway</div>
+            </div>
+            <div style="flex:2">
+                <div class="t">10.100.1.66 - 10.100.1.70</div>
+                <div class="s">range</div>
+            </div>
+        </div>
+        <div class="cols">
+            <div>
+                <div class="t">0</div>
+                <div class="s">reserved leases</div>
+            </div>
+            <div>
+                <div class="t">2</div>
+                <div class="s">active leases</div>
+            </div>
+            <div></div>
+        </div>
+        <div class="cols">
+            <div>
+                <div class="t">0</div>
+                <div class="s">tags</div>
+            </div>
+            <div>
+                <div class="t">0</div>
+                <div class="s">options</div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div id="ports-and-xlinks">
+            <hr>
+            <div class="ctrl" hx-get="status/e/ports-and-xlinks" hx-target="#ctrl-modal">
+    <div class="cols">
+        <div>
+            <div class="section-title">XLinks</div>
+            <div class="section">
+                <div class="t">0</div>
+                <div class="s">xlinks</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div id="tunnels">
+            <hr>
+            <div hx-get="u-tunnels" hx-trigger="every 120s [document.visibilityState === 'visible']">
+            <div class="ctrl" hx-get="status/e/tunnels" hx-target="#ctrl-modal" hx-swap="innerHTML">
+    <div class="section-title">Tunnels</div>
+    <div class="section">
+        <div class="cols">
+            <div>
+                <div class="t">1</div>
+                <div class="s">active clients</div>
+            </div>
+            <div>
+                <div class="t">1</div>
+                <div class="s">allocated clients</div>
+            </div>
+            <div>
+                <div class="t">0</div>
+                <div class="s">active servers</div>
+            </div>
+            <div>
+                <div class="t">0</div>
+                <div class="s">allocated servers</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

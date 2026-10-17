@@ -1,0 +1,167 @@
+<div class="dialog">
+    <div>
+    <input style="position:absolute;top:-10000px">
+    <button id="dialog-help" class="" hx-get="/a/neighbor-device?m=02:00:00:00:00:04" hx-trigger="click delay:10ms" hx-target="#ctrl-modal" hx-headers='{"Include-Help":"1","Include-Advanced":"0"}'>Help</button>
+    <div class="t">Neighborhood Node</div>
+    <hr/>
+</div>
+
+    <div>
+        
+        <div class="neighbor">
+            <div class="o">
+                <div><a href="http://tst05-tunnelserver.local.mesh" target="_blank">tst05-tunnelserver</a></div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>Wireguard</div>
+                    <div>type</div>
+                </div>
+                <div class="i">
+                    <div>02:00:00:00:00:04</div>
+                    <div>mac address</div>
+                </div>
+                <div class="i">
+                    <div><a href="http://172.31.159.46/">172.31.159.46</a></div>
+                    <div>ip address</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>QEMU Standard PC (i440FX + PIIX, 1996)</div>
+                    <div>model</div>
+                </div>
+                <div class="i">
+                    <div>4.26.7.0</div>
+                    <div>firmware</div>
+                </div>
+                <div class="i">
+                    <div style="word-break:break-all">fe80::200:acff:fe1f:9f2e</div>
+                    <div>link address</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div><a href="https://worldmap.arednmesh.org/#12/24.74574/104.05238" target="_blank">24.7457</a></div>
+                    <div>latitude</div>
+                </div>
+                <div class="i">
+                    <div><a href="https://worldmap.arednmesh.org/#12/24.74574/104.05238" target="_blank">104.0524</a></div>
+                    <div>longitude</div>
+                </div>
+                <div class="i">
+                    <div><a href="https://worldmap.arednmesh.org/#12/24.74574/104.05238" target="_blank">58.9 miles</a></div>
+                    <div>distance</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>100%</div>
+                    <div>rx success</div>
+                </div>
+                <div class="i">
+                    <div>100%</div>
+                    <div>tx success</div>
+                </div>
+                <div></div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>206</div>
+                    <div>rx cost</div>
+                </div>
+                <div class="i">
+                    <div>206</div>
+                    <div>tx cost</div>
+                </div>
+                <div></div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>41.0 ms</div>
+                    <div>ping time</div>
+                </div>
+                <div class="i">
+                    <div>100%</div>
+                    <div>ping success</div>
+                </div>
+                <div class="i">
+                    <div>11.5 pkt/sec</div>
+                    <div>avg tx</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>13.2 ms</div>
+                    <div>neighbor ping time</div>
+                </div>
+                <div class="i">
+                    <div>100%</div>
+                    <div>neighbor ping success</div>
+                </div>
+                <div class="i">
+                    <div>0%</div>
+                    <div>neighbor errors</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>12.0 ms</div>
+                    <div>round trip time</div>
+                </div>
+                <div class="i">
+                    <div>0.0%</div>
+                    <div>tx failures</div>
+                </div>
+                <div></div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>routing</div>
+                    <div>state</div>
+                </div>
+                <div class="i">
+                    <div>9</div>
+                    <div>routes</div>
+                </div>
+                <div class="i">
+                    <div>209</div>
+                    <div>metric</div>
+                </div>
+            </div>
+            <div class="cols">
+                <div class="i">
+                    <div>now</div>
+                    <div>last seen</div>
+                </div>
+                <div class="i">
+                    <div>32 hours</div>
+                    <div>link uptime</div>
+                </div>
+                <div></div>
+            </div>
+            <div class="location-image"><a href="https://worldmap.arednmesh.org/#12/24.74574/104.05238" target="_blank"><iframe loading="lazy" src="https://worldmap.arednmesh.org/#12/24.74574/104.05238"></iframe><div class="overlay"></div></a></div>
+            <script>
+                (function(){
+                    fetch("https://worldmap.arednmesh.org/#12/24.74574/104.05238").catch(_ => document.querySelector(".dialog .location-image").style.display = "none");
+                })();
+            </script>
+        </div>
+    </div>
+    <div class="ctrl-modal-footer">
+    <hr/>
+    <button id="dialog-done" onclick="htmx.find('#ctrl-modal').style.display='none';const f=()=>htmx.find('body.htmx-request')?setTimeout(f,10):(m=htmx.find('#ctrl-modal'),m.close(),m.style.display='');setTimeout(f,100)">Done</button>
+</div>
+
+    <script>
+    (function(){
+    {
+    const d = document.querySelector('dialog');
+    if (d && !d.open) {
+        d.showModal();
+    }
+}
+
+    })();
+    </script>
+</div>
