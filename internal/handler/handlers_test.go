@@ -14,6 +14,7 @@ import (
 	gojson "go.gh.ink/json"
 
 	"aredn-map/internal/model"
+	"aredn-map/internal/repository/ping"
 	"aredn-map/internal/repository/store"
 	"aredn-map/internal/service/scanner"
 )
@@ -787,4 +788,42 @@ func allLinkEdges(t testing.TB, h *harness) []string {
 			decodeString(t, requireKey(t, l, "to", "link"), "to"))
 	}
 	return out
+}
+
+// The node card's re-probe button: one host gets a fresh verdict and the row comes back.
+func TestProbeOneNodeOnDemand(t *testing.T) {
+	st := store.New()
+	seedContractStore(st)
+	cfg := testConfig()
+	pg := &fakePinger{mode: cfg.ICMP.Mode, results: map[string]ping.Result{
+		"never-probed-b": {Host: "never-probed-b", Sent: 3, Recv: 3, AvgMs: 7.5, TTL: 62},
+	}}
+	h := newHarness(t, cfg, st, nil, pg)
+
+	var got struct {
+		Node model.Node `json:"node"`
+	}
+	code, _, raw := h.post("/api/probe", `{"host":"never-probed-b"}`)
+	if code != http.StatusOK {
+		t.Fatalf("probe -> %d, want 200 (%s)", code, raw)
+	}
+	if err := gojson.Unmarshal(raw, &got); err != nil {
+		t.Fatalf("probe body: %v", err)
+	}
+	if !got.Node.Online || got.Node.ProbedAt.IsZero() {
+		t.Errorf("returned node = online %v probed_at %v, want a fresh live verdict", got.Node.Online, got.Node.ProbedAt)
+	}
+	if stored, _ := st.NodeByID("never-probed-b"); !stored.Online {
+		t.Error("the store row was not updated by the on-demand probe")
+	}
+	if !slices.Contains(pg.probedHosts(), "never-probed-b") {
+		t.Error("the pinger was never asked for the requested host")
+	}
+
+	if code, _, raw := h.post("/api/probe", `{"host":"nobody-here"}`); code != http.StatusNotFound {
+		t.Errorf("unknown host -> %d, want 404 (%s)", code, raw)
+	}
+	if code, _, raw := h.post("/api/probe", `{}`); code != http.StatusBadRequest {
+		t.Errorf("missing host -> %d, want 400 (%s)", code, raw)
+	}
 }

@@ -149,12 +149,14 @@ func stampSupernode(n *model.Node, parts ...string) {
 	}
 }
 
-// probe gives a verdict to every known node that has none, including host-table names.
+// probe re-checks every node whose verdict predates this sweep, so a node that died between
+// sweeps cannot stay online on the strength of an old ping. Parked nodes are the revisit lane's.
 func (e *Engine) probe(ctx context.Context) {
+	start := e.sweepStart
 	nodes := e.st.Nodes()
 	hosts := make([]string, 0, len(nodes))
 	for _, n := range nodes {
-		if n.ProbedAt.IsZero() {
+		if n.ProbedAt.Before(start) && n.RevisitAt.IsZero() {
 			hosts = append(hosts, n.Hostname)
 		}
 	}

@@ -81,6 +81,20 @@ func (e *Engine) Enabled() bool {
 	return e.enabled
 }
 
+// ProbeNow gives one known node a fresh ICMP verdict on request; false means no such node.
+func (e *Engine) ProbeNow(ctx context.Context, host string) (model.Node, bool) {
+	id := NormalizeHost(host)
+	if _, ok := e.st.NodeByID(id); !ok {
+		return model.Node{}, false
+	}
+	e.probeOne(ctx, id)
+	fresh, _ := e.st.NodeByID(id)
+	if fresh == nil {
+		return model.Node{}, false
+	}
+	return *fresh, true
+}
+
 func (e *Engine) Status() model.ScanStatus {
 	e.mu.Lock()
 	defer e.mu.Unlock()

@@ -30,4 +30,5 @@ func Register(api fiber.Router, d controller.Deps) {
 	api.Post("/scan/run", scan.Run(d, scanner.KindFull))
 	api.Post("/scan/incremental", scan.Run(d, scanner.KindIncremental))
 	api.Post("/scan/stop", scan.Stop(d))
+	api.Post("/probe", scan.Probe(d))
 }
